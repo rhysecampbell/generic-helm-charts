@@ -43,6 +43,23 @@ ingress:
           pathType: Prefix
   tls: []
 
+# Vault Agent Injector configuration
+vault:
+  enabled: true
+  # Vault role for Kubernetes auth (must match role in Vault)
+  role: nginx
+  # Service account to use for Vault auth
+  serviceAccountName: default
+  # Secrets to inject (written to /vault/secrets/<key>)
+  secrets:
+    config:
+      path: "secret/data/nginx/config"
+      # Optional: template to format the secret
+      template: |
+        {{- with secret "secret/data/nginx/config" -}}
+        export EXAMPLE_KEY="{{ .Data.data.example_key }}"
+        {{- end }}
+
 resources:
   limits:
     cpu: 100m
