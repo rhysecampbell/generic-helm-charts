@@ -9,20 +9,32 @@ service:
   type: ClusterIP
   port: 80
 
+# TLS configuration for pod-level encryption
+tls:
+  enabled: true
+  # Secret name where cert-manager stores the certificate
+  secretName: nginx-tls
+  # ClusterIssuer or Issuer reference
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  # DNS names for the certificate
+  dnsNames:
+    - nginx.aniva.co
+
+# Ingress configuration (routes through Traefik)
 ingress:
   enabled: true
   className: "traefik"
   annotations:
-    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    # Tell Traefik to use HTTPS when connecting to backend
+    traefik.ingress.kubernetes.io/service.serversscheme: https
   hosts:
     - host: nginx.aniva.co
       paths:
         - path: /
           pathType: Prefix
-  tls:
-    - secretName: nginx-tls
-      hosts:
-        - nginx.aniva.co
+  tls: []  # TLS termination happens at pod level, not ingress
 
 resources:
   limits:

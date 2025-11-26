@@ -1,0 +1,17 @@
+{{- if .Values.tls.enabled }}
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ include "nginx.fullname" . }}-tls
+  labels:
+    {{- include "nginx.labels" . | nindent 4 }}
+spec:
+  secretName: {{ .Values.tls.secretName | default (printf "%s-tls" (include "nginx.fullname" .)) }}
+  issuerRef:
+    name: {{ .Values.tls.issuerRef.name }}
+    kind: {{ .Values.tls.issuerRef.kind | default "ClusterIssuer" }}
+  dnsNames:
+    {{- range .Values.tls.dnsNames }}
+    - {{ . | quote }}
+    {{- end }}
+{{- end }}
