@@ -1,0 +1,27 @@
+{{- if and .Values.certManager.enabled .Values.certManager.issuers.staging.enabled }}
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: {{ .Values.certManager.issuers.staging.name }}
+  labels:
+    {{- include "cluster-config.labels" . | nindent 4 }}
+spec:
+  acme:
+    # Let's Encrypt Staging server
+    server: {{ .Values.certManager.issuers.staging.server }}
+
+    # Email address for certificate expiration notifications
+    email: {{ required "certManager.email is required" .Values.certManager.email }}
+
+    # Secret to store the ACME account private key
+    privateKeySecretRef:
+      name: {{ .Values.certManager.issuers.staging.name }}-account-key
+
+    # DNS01 challenge solver using Cloudflare
+    solvers:
+      - dns01:
+          cloudflare:
+            apiTokenSecretRef:
+              name: {{ .Values.certManager.cloudflare.secretName }}
+              key: {{ .Values.certManager.cloudflare.secretKey }}
+{{- end }}

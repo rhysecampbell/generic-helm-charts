@@ -1,0 +1,29 @@
+# Cert-manager ClusterIssuer configuration
+certManager:
+  enabled: true
+
+  # Email for Let's Encrypt notifications
+  email: ""
+
+  # Cloudflare configuration for DNS01 challenge
+  cloudflare:
+    # Name of the secret containing the API token
+    secretName: cloudflare-api-token
+    # Namespace where the secret is located
+    secretNamespace: cert-manager
+    # Key in the secret containing the token
+    secretKey: api-token
+
+  # ClusterIssuers to create
+  issuers:
+    # Let's Encrypt Staging (for testing)
+    staging:
+      enabled: true
+      name: letsencrypt-staging
+      server: https://acme-staging-v02.api.letsencrypt.org/directory
+
+    # Let's Encrypt Production
+    production:
+      enabled: true
+      name: letsencrypt-prod
+      server: https://acme-v02.api.letsencrypt.org/directory
