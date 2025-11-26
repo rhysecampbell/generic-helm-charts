@@ -26,9 +26,7 @@ spec:
         {{- end }}
       {{- end }}
     spec:
-      {{- if .Values.vault.enabled }}
-      serviceAccountName: {{ .Values.vault.serviceAccountName | default "default" }}
-      {{- end }}
+      serviceAccountName: {{ .Values.serviceAccount.name | default (include "nginx.fullname" .) }}
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"

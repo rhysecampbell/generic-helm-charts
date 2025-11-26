@@ -5,6 +5,12 @@ image:
   tag: "1.25.3"
   pullPolicy: IfNotPresent
 
+# Service account for the pod
+serviceAccount:
+  create: true
+  name: ""  # Defaults to release fullname
+  annotations: {}
+
 service:
   type: ClusterIP
   port: 443
@@ -48,8 +54,6 @@ vault:
   enabled: true
   # Vault role for Kubernetes auth (must match role in Vault)
   role: nginx
-  # Service account to use for Vault auth
-  serviceAccountName: default
   # Secrets to inject (written to /vault/secrets/<key>)
   secrets:
     config:
