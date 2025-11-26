@@ -16,14 +16,14 @@ certManager:
 
   # ClusterIssuers to create
   issuers:
-    # Let's Encrypt Staging (for testing)
+    # Let's Encrypt Staging (for testing ACME flow only - certs NOT trusted)
     staging:
-      enabled: true
+      enabled: false
       name: letsencrypt-staging
       server: https://acme-staging-v02.api.letsencrypt.org/directory
 
-    # Let's Encrypt Production
+    # Let's Encrypt Production (real trusted certificates)
     production:
-      enabled: false
+      enabled: true
       name: letsencrypt-prod
       server: https://acme-v02.api.letsencrypt.org/directory
