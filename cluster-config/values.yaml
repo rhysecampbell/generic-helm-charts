@@ -2,8 +2,8 @@
 certManager:
   enabled: true
 
-  # Email for Let's Encrypt notifications
-  email: ""
+  # Email for Let's Encrypt notifications (required for Let's Encrypt)
+  email: "admin@aniva.co"
 
   # Cloudflare configuration for DNS01 challenge
   cloudflare:
