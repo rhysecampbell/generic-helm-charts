@@ -10,15 +10,19 @@ service:
   port: 80
 
 ingress:
-  enabled: false
-  className: ""
-  annotations: {}
+  enabled: true
+  className: "traefik"
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
   hosts:
-    - host: nginx.local
+    - host: nginx.aniva.co
       paths:
         - path: /
           pathType: Prefix
-  tls: []
+  tls:
+    - secretName: nginx-tls
+      hosts:
+        - nginx.aniva.co
 
 resources:
   limits:
