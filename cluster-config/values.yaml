@@ -24,6 +24,6 @@ certManager:
 
     # Let's Encrypt Production
     production:
-      enabled: true
+      enabled: false
       name: letsencrypt-prod
       server: https://acme-v02.api.letsencrypt.org/directory
