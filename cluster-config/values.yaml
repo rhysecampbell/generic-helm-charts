@@ -3,7 +3,7 @@ certManager:
   enabled: true
 
   # Email for Let's Encrypt notifications (required for Let's Encrypt)
-  email: "devops@aniva.co"
+  email: "devops@strata.io"
 
   # Cloudflare configuration for DNS01 challenge
   cloudflare:
