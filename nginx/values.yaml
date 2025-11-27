@@ -26,7 +26,7 @@ tls:
     kind: ClusterIssuer
   # DNS names for the certificate
   dnsNames:
-    - nginx.aniva.co
+    - nginx.strata-cloud.io
 
 # Ingress configuration (ALB direct to pod)
 ingress:
@@ -43,7 +43,7 @@ ingress:
     # ACM certificate ARN - replace with your certificate
     alb.ingress.kubernetes.io/certificate-arn: ""
   hosts:
-    - host: nginx.aniva.co
+    - host: nginx.strata-cloud.io
       paths:
         - path: /
           pathType: Prefix
